@@ -11,6 +11,7 @@ import { Blocks } from '../../_components/Blocks'
 import { Hero } from '../../_components/Hero'
 import { generateMeta } from '../../_utilities/generateMeta'
 
+import Categories from '@/app/_components/Categories'
 import { Gutter } from '@/app/_components/Gutter'
 
 import classes from './index.module.scss'
@@ -61,7 +62,9 @@ export default async function Page({ params: { slug = 'home' } }) {
       {slug === 'home' ? (
         <section>
           <Hero {...hero} />
-          <Gutter> {/* categories */}</Gutter>
+          <Gutter className={classes.home}>
+            <Categories categories={categories} />
+          </Gutter>
         </section>
       ) : (
         <>
