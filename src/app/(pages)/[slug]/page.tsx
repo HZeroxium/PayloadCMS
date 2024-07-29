@@ -8,14 +8,9 @@ import { staticHome } from '../../../payload/seed/home-static'
 import { fetchDoc } from '../../_api/fetchDoc'
 import { fetchDocs } from '../../_api/fetchDocs'
 import { Blocks } from '../../_components/Blocks'
+import { Gutter } from '../../_components/Gutter'
 import { Hero } from '../../_components/Hero'
 import { generateMeta } from '../../_utilities/generateMeta'
-
-import Categories from '@/app/_components/Categories'
-import { Gutter } from '@/app/_components/Gutter'
-
-import classes from './index.module.scss'
-import Promotion from '@/app/_components/Promotion'
 
 // Payload Cloud caches all files through Cloudflare, so we don't need Next.js to cache them as well
 // This means that we can turn off Next.js data caching and instead rely solely on the Cloudflare CDN
@@ -25,11 +20,17 @@ import Promotion from '@/app/_components/Promotion'
 // If you are not using Payload Cloud then this line can be removed, see `../../../README.md#cache`
 export const dynamic = 'force-dynamic'
 
+import Categories from '../../_components/Categories'
+import Promotion from '../../_components/Promotion'
+
+import classes from './index.module.scss'
+
 export default async function Page({ params: { slug = 'home' } }) {
   const { isEnabled: isDraftMode } = draftMode()
 
   let page: Page | null = null
   let categories: Category[] | null = null
+
   try {
     page = await fetchDoc<Page>({
       collection: 'pages',
@@ -63,6 +64,7 @@ export default async function Page({ params: { slug = 'home' } }) {
       {slug === 'home' ? (
         <section>
           <Hero {...hero} />
+
           <Gutter className={classes.home}>
             <Categories categories={categories} />
             <Promotion />
